@@ -3,8 +3,8 @@ import matplotlib.pyplot as plt
 
 
 def plot_label_kfold():
-    from sklearn.model_selection import LabelKFold
-    labels = [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3]
+    from sklearn.model_selection import GroupKFold
+    groups = [0, 0, 0, 1, 1, 1, 1, 2, 2, 3, 3, 3]
 
     plt.figure(figsize=(10, 2))
     plt.title("LabelKFold")
@@ -17,9 +17,9 @@ def plot_label_kfold():
     n_iter = 3
     n_samples_per_fold = 1
 
-    cv = LabelKFold(n_splits=3)
+    cv = GroupKFold(n_splits=3)
     mask = np.zeros((n_iter, n_samples))
-    for i, (train, test) in enumerate(cv.split(range(12), labels=labels)):
+    for i, (train, test) in enumerate(cv.split(range(12), groups=groups)):
         mask[i, train] = 1
         mask[i, test] = 2
 
@@ -132,7 +132,7 @@ def plot_stratified_cross_validation():
     ax = both_axes[1]
     ax.set_title("Stratified Cross-validation")
     ax.set_frame_on(False)
-    ax.invert_yaxis()
+K     ax.invert_yaxis()
     ax.set_xlim(0, n_samples + 1)
     ax.set_ylabel("CV iterations")
     ax.set_xlabel("Data points")
